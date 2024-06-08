@@ -1,0 +1,20 @@
+## Build settings
+*.pbxproj
+
+## Xcode-generated files
+*.mode1v3
+*.mode2v3
+
+## Xcode configuration files
+*.xcconfig
+
+## Xcode build folders
+build/
+xcuserdata/
+
+## CocoaPods
+Pods/
+
+## Carthage
+Carthage/
+
