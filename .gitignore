@@ -11,6 +11,7 @@
 ## Xcode build folders
 build/
 xcuserdata/
+*.rcuserdata
 
 ## CocoaPods
 Pods/
