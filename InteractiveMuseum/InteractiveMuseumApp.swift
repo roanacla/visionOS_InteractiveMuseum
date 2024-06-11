@@ -6,16 +6,24 @@
 //
 
 import SwiftUI
+import RealityKitContent
 
 @main
 struct InteractiveMuseumApp: App {
+    
+    init() {
+        RealityKitContent.GestureComponent.registerComponent()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+        .windowStyle(.volumetric)
+        .defaultSize(width: 0.75, height: 0.75, depth: 1, in: .meters )
 
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView()
-        }.immersionStyle(selection: .constant(.full), in: .full)
+        }.immersionStyle(selection: .constant(.mixed), in: .mixed)
     }
 }

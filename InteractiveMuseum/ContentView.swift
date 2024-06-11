@@ -22,7 +22,8 @@ struct ContentView: View {
             Model3D(named: "Scene", bundle: realityKitContentBundle)
                 .padding(.bottom, 50)
 
-            Text("Hello, world!")
+            Text("Welcome to the Interactive Museum!")
+                .font(.largeTitle)
 
             Toggle("Show ImmersiveSpace", isOn: $showImmersiveSpace)
                 .font(.title)

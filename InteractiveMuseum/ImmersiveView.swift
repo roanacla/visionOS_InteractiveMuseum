@@ -25,7 +25,10 @@ struct ImmersiveView: View {
                 // Put skybox here.  See example in World project available at
                 // https://developer.apple.com/
             }
+        } update: { content in
+            //
         }
+        .installGestures()
     }
 }
 
