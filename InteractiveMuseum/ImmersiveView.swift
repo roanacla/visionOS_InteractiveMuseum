@@ -13,6 +13,7 @@ struct ImmersiveView: View {
     @State var isObjectSelected = false
     @State var currentEntity: Entity?
     @State var previousPosition: SIMD3<Float> = [0,0,0]
+    @State var sliderValue = 1.5
     
     var body: some View {
         RealityView { content, attachments in
@@ -30,48 +31,62 @@ struct ImmersiveView: View {
                 // https://developer.apple.com/
             }
         } update: { content, attachments in
-            if let attachmentEntity = attachments.entity(for: "h1") {
+            if let attachmentEntity = attachments.entity(for: "EntityController") {
                 content.add(attachmentEntity)
-//                currentEntity?.addChild(attachmentEntity)
-                attachmentEntity.setPosition([0,-10,10], relativeTo: currentEntity)
+                attachmentEntity.setPosition([0,-20,10], relativeTo: currentEntity)
             }
         } attachments: {
             if isObjectSelected {
-                Attachment(id: "h1") {
+                Attachment(id: "EntityController") {
                     HStack {
-                        Button(action: {
-                            
-                        }, label: {
-                            Text("Scale")
+                        Label(title: {
+                            Text("Pinch & Drag")
+                        }, icon: {
+                            Image("Pinch & Drag")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
                         })
-                        Button(action: {
-                            
-                        }, label: {
+                        .padding([.leading])
+                        Spacer()
+                        Label(title: {
                             Text("Rotate")
+                        }, icon: {
+                            Image("Rotate")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
                         })
+                        .padding([.trailing])
                     }
-                    .padding()
+                    .padding(32)
                     .background(Color.gray.opacity(0.5))
                     .cornerRadius(10)
+                    .frame(width: 500, height: 100)
                     
-                    VStack {
-                        Button(action: {
-                            currentEntity?.setPosition(previousPosition, relativeTo: nil)
-                            currentEntity = nil
-                            previousPosition = [0,0,0]
-                            isObjectSelected = false
-                        }, label: {
-                            Text("Close")
-                        })
-                        Button(action: {
-                            
-                        }, label: {
-                            Text("Rotate")
-                        })
+                    Slider(
+                        value: $sliderValue,
+                        in: 1...2,
+                        step: 0.05
+                    ) {
+                        Text("ITEM ZOOM LEVEL")
+                    } minimumValueLabel: {
+                        Text("1x")
+                    } maximumValueLabel: {
+                        Text("2x")
                     }
-                    .padding()
+                    .padding(32)
                     .background(Color.gray.opacity(0.5))
                     .cornerRadius(10)
+                    .frame(width: 500)
+                    
+                    Button(action: {
+                        currentEntity?.setPosition(previousPosition, relativeTo: nil)
+                        currentEntity?.components[GestureComponent.self]?.canDrag = false
+                        currentEntity = nil
+                        previousPosition = [0,0,0]
+                        isObjectSelected = false
+                    }, label: {
+                        Text("Close")
+                    })
                 }
             }
         }
@@ -87,6 +102,7 @@ struct ImmersiveView: View {
                 currentEntity = value.entity
                 previousPosition = value.entity.position
                 value.entity.setPosition([0, 1.5, -1], relativeTo: nil)
+                value.entity.components[GestureComponent.self]?.canDrag = true
                 // position object 0.5 meters in front of user.
             }
     }

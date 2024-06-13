@@ -28,6 +28,36 @@ def Xform "Root"
         float3 xformOp:scale = (0.002, 0.002, 0.002)
         float3 xformOp:translate = (-0.5, 0.75, -1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "InputTarget"
+        {
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def RealityKitCustomComponent "RealityKitContent_GestureComponent"
+        {
+            bool canDrag = 0
+            uniform token info:id = "RealityKitContent.GestureComponent"
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (83.07196, 100.81468, 62.6128)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                    float3 position = (-4.356552, 50.409134, 7.992238)
+                }
+            }
+        }
     }
 
     def "robot_walk_idle" (
@@ -41,6 +71,7 @@ def Xform "Root"
 
         def RealityKitCustomComponent "RealityKitContent_GestureComponent"
         {
+            bool canDrag = 0
             uniform token info:id = "RealityKitContent.GestureComponent"
         }
 
@@ -77,6 +108,36 @@ def Xform "Root"
         float3 xformOp:scale = (0.01, 0.01, 0.01)
         float3 xformOp:translate = (0.5, 1.25, -1.5)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "InputTarget"
+        {
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def RealityKitCustomComponent "RealityKitContent_GestureComponent"
+        {
+            bool canDrag = 0
+            uniform token info:id = "RealityKitContent.GestureComponent"
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (12.44035, 11.605675, 31.311699)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                    float3 position = (2.3841858e-7, 5.8028364, 0)
+                }
+            }
+        }
     }
 
     def "wateringcan" (
@@ -87,6 +148,36 @@ def Xform "Root"
         float3 xformOp:scale = (0.005, 0.005, 0.005)
         float3 xformOp:translate = (0.5, 0.75, -1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitCustomComponent "RealityKitContent_GestureComponent"
+        {
+            bool canDrag = 0
+            uniform token info:id = "RealityKitContent.GestureComponent"
+        }
+
+        def RealityKitComponent "InputTarget"
+        {
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (54.914925, 45.506588, 28.350883)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                    float3 position = (3.816636, 22.753294, 0)
+                }
+            }
+        }
     }
 }
 
