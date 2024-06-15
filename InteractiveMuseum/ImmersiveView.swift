@@ -16,6 +16,41 @@ struct ImmersiveView: View {
     @State var sliderValue = 1.0
     @State var previousSize: SIMD3<Float> = [0,0,0]
     
+    //MARK: - Gestures
+    var tapGesture: some Gesture {
+        TapGesture()
+            .targetedToAnyEntity()
+            .onEnded { value in
+                isObjectSelected = true
+                currentEntity = value.entity
+                previousPosition = value.entity.position
+                previousSize = value.entity.scale
+                value.entity.setPosition([0, 1 , -1], relativeTo: nil)
+                value.entity.components[GestureComponent.self]?.canDrag = true
+                // position object 0.5 meters in front of user.
+            }
+    }
+    //MARK: - Functions
+    func resetEntityAndEditingTools() {
+        currentEntity?.setPosition(previousPosition, relativeTo: nil)
+        currentEntity?.components[GestureComponent.self]?.canDrag = false
+        currentEntity?.setScale(previousSize, relativeTo: nil)
+        currentEntity = nil
+        previousPosition = [0,0,0]
+        isObjectSelected = false
+        sliderValue = 1.0
+    }
+    
+    func scaleEntity(by sizeDifference: Float) {
+        currentEntity?.scale *= SIMD3<Float>(repeating: sizeDifference)
+    }
+    
+    func getSizeDifference(oldValue: Double, newValue: Double) -> Float {
+        let (min, max) = (min(oldValue, newValue), max(oldValue, newValue))
+        return abs(Float(max - min) + (max == oldValue ? -1 : 1))
+    }
+    
+    //MARK: - Body
     var body: some View {
         RealityView { content, attachments in
             // Add the initial RealityKit content
@@ -39,54 +74,12 @@ struct ImmersiveView: View {
         } attachments: {
             if isObjectSelected {
                 Attachment(id: "EntityController") {
-                    HStack {
-                        Label(title: {
-                            Text("Pinch & Drag")
-                        }, icon: {
-                            Image("Pinch & Drag")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        })
-                        .padding([.leading])
-                        Spacer()
-                        Label(title: {
-                            Text("Rotate")
-                        }, icon: {
-                            Image("Rotate")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        })
-                        .padding([.trailing])
-                    }
-                    .padding(32)
-                    .glassBackgroundEffect()
-                    .cornerRadius(10)
-                    .frame(width: 500, height: 100)
+                    TipContainerView()
                     
-                    Slider(
-                        value: $sliderValue,
-                        in: 1...2,
-                        step: 0.1
-                    ) {
-                        Text("ITEM ZOOM LEVEL")
-                    } minimumValueLabel: {
-                        Text("1x")
-                    } maximumValueLabel: {
-                        Text("2x")
-                    }
-                    .padding(32)
-                    .glassBackgroundEffect()
-                    .cornerRadius(10)
-                    .frame(width: 500)
+                    ScaleSliderView(sliderValue: $sliderValue)
                     
                     Button(action: {
-                        currentEntity?.setPosition(previousPosition, relativeTo: nil)
-                        currentEntity?.components[GestureComponent.self]?.canDrag = false
-                        currentEntity?.setScale(previousSize, relativeTo: nil)
-                        currentEntity = nil
-                        previousPosition = [0,0,0]
-                        isObjectSelected = false
-                        sliderValue = 1.0
+                        resetEntityAndEditingTools()
                     }, label: {
                         Text("Close")
                     })
@@ -96,24 +89,8 @@ struct ImmersiveView: View {
         .installGestures()
         .gesture(tapGesture)
         .onChange(of: sliderValue) { oldValue, newValue in
-            let (min, max) = (min(oldValue, newValue), max(oldValue, newValue))
-            let diff = abs(Float(max - min) + (max == oldValue ? -1 : 1))
-            currentEntity?.scale *= SIMD3<Float>(repeating: diff)
+            scaleEntity(by: getSizeDifference(oldValue: oldValue, newValue: newValue))
         }
-    }
-    
-    var tapGesture: some Gesture {
-        TapGesture()
-            .targetedToAnyEntity()
-            .onEnded { value in
-                isObjectSelected = true
-                currentEntity = value.entity
-                previousPosition = value.entity.position
-                previousSize = value.entity.scale
-                value.entity.setPosition([0, 1.5, -1], relativeTo: nil)
-                value.entity.components[GestureComponent.self]?.canDrag = true
-                // position object 0.5 meters in front of user.
-            }
     }
 }
 
