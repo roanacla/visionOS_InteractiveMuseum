@@ -13,7 +13,8 @@ struct ImmersiveView: View {
     @State var isObjectSelected = false
     @State var currentEntity: Entity?
     @State var previousPosition: SIMD3<Float> = [0,0,0]
-    @State var sliderValue = 1.5
+    @State var sliderValue = 1.0
+    @State var previousSize: SIMD3<Float> = [0,0,0]
     
     var body: some View {
         RealityView { content, attachments in
@@ -58,14 +59,14 @@ struct ImmersiveView: View {
                         .padding([.trailing])
                     }
                     .padding(32)
-                    .background(Color.gray.opacity(0.5))
+                    .glassBackgroundEffect()
                     .cornerRadius(10)
                     .frame(width: 500, height: 100)
                     
                     Slider(
                         value: $sliderValue,
                         in: 1...2,
-                        step: 0.05
+                        step: 0.1
                     ) {
                         Text("ITEM ZOOM LEVEL")
                     } minimumValueLabel: {
@@ -74,16 +75,18 @@ struct ImmersiveView: View {
                         Text("2x")
                     }
                     .padding(32)
-                    .background(Color.gray.opacity(0.5))
+                    .glassBackgroundEffect()
                     .cornerRadius(10)
                     .frame(width: 500)
                     
                     Button(action: {
                         currentEntity?.setPosition(previousPosition, relativeTo: nil)
                         currentEntity?.components[GestureComponent.self]?.canDrag = false
+                        currentEntity?.setScale(previousSize, relativeTo: nil)
                         currentEntity = nil
                         previousPosition = [0,0,0]
                         isObjectSelected = false
+                        sliderValue = 1.0
                     }, label: {
                         Text("Close")
                     })
@@ -92,6 +95,11 @@ struct ImmersiveView: View {
         }
         .installGestures()
         .gesture(tapGesture)
+        .onChange(of: sliderValue) { oldValue, newValue in
+            let (min, max) = (min(oldValue, newValue), max(oldValue, newValue))
+            let diff = abs(Float(max - min) + (max == oldValue ? -1 : 1))
+            currentEntity?.scale *= SIMD3<Float>(repeating: diff)
+        }
     }
     
     var tapGesture: some Gesture {
@@ -101,6 +109,7 @@ struct ImmersiveView: View {
                 isObjectSelected = true
                 currentEntity = value.entity
                 previousPosition = value.entity.position
+                previousSize = value.entity.scale
                 value.entity.setPosition([0, 1.5, -1], relativeTo: nil)
                 value.entity.components[GestureComponent.self]?.canDrag = true
                 // position object 0.5 meters in front of user.
