@@ -25,7 +25,7 @@ struct ImmersiveView: View {
                 currentEntity = value.entity
                 previousPosition = value.entity.position
                 previousSize = value.entity.scale
-                value.entity.setPosition([0, 1 , -1], relativeTo: nil)
+                value.entity.setPosition([0, 0.6, -1], relativeTo: nil)
                 value.entity.components[GestureComponent.self]?.canDrag = true
                 // position object 0.5 meters in front of user.
             }
@@ -42,7 +42,8 @@ struct ImmersiveView: View {
     }
     
     func scaleEntity(by sizeDifference: Float) {
-        currentEntity?.scale *= SIMD3<Float>(repeating: sizeDifference)
+        guard let currentEntity else { return }
+        currentEntity.scale *= SIMD3<Float>(repeating: sizeDifference)
     }
     
     func getSizeDifference(oldValue: Double, newValue: Double) -> Float {
@@ -69,7 +70,12 @@ struct ImmersiveView: View {
         } update: { content, attachments in
             if let attachmentEntity = attachments.entity(for: "EntityController") {
                 content.add(attachmentEntity)
-                attachmentEntity.setPosition([0,-20,10], relativeTo: currentEntity)
+                attachmentEntity.setPosition([0,0.5,-0.7], relativeTo: attachmentEntity.parent)
+                let rotationAngleDegrees: Float = -30
+                let rotationAngleRadians = rotationAngleDegrees * .pi / 180
+                let rotationQuaternion = simd_quatf(angle: rotationAngleRadians, axis: SIMD3<Float>(1, 0, 0))
+
+                attachmentEntity.setOrientation(rotationQuaternion, relativeTo: nil)
             }
         } attachments: {
             if isObjectSelected {
