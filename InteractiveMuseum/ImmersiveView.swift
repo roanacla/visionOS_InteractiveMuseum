@@ -76,15 +76,16 @@ struct ImmersiveView: View {
                 let iblComponent = ImageBasedLightComponent(source: .single(resource), intensityExponent: 0.25)
                 immersiveContentEntity.components.set(iblComponent)
                 immersiveContentEntity.components.set(ImageBasedLightReceiverComponent(imageBasedLight: immersiveContentEntity))
-
-                // Put skybox here.  See example in World project available at
-                // https://developer.apple.com/
             }
         } update: { content, attachments in
             if let attachmentEntity = attachments.entity(for: "EntityController") {
                 content.add(attachmentEntity)
                 setPosition([0,0.5,-0.7], to: attachmentEntity)
                 tilt(entity: attachmentEntity, by: -30)
+            }
+            if let fog = content.entities[0].findEntity(named: "ParticleEmitter"), let currentEntity {
+                fog.components[ParticleEmitterComponent.self]?.isEmitting = true
+                fog.components[ParticleEmitterComponent.self]?.restart()
             }
         } attachments: {
             if currentEntity != nil {

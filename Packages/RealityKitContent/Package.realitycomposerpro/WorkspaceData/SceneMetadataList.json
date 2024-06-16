@@ -11,6 +11,18 @@
       }
     ]
   },
+  "5CBF87E5-FC1E-46E4-A38F-E969F03EEC15" : {
+    "objectMetadataList" : [
+      [
+        "5CBF87E5-FC1E-46E4-A38F-E969F03EEC15",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
   "65F6F990-A780-4474-B78B-572E0E4E273D" : {
     "objectMetadataList" : [
       [
@@ -39,26 +51,6 @@
     "objectMetadataList" : [
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Central_Column",
-        "Group"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Column",
-        "Group"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root"
       ],
       {
@@ -80,7 +72,7 @@
         "Root",
         "Central_Column",
         "Group",
-        "Sphere"
+        "Sphere_1"
       ],
       {
         "isExpanded" : true,
@@ -89,25 +81,19 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Central_Column"
+        "AmbientAudio"
       ],
       {
-        "isExpanded" : true,
-        "isLocked" : false
+        "isExpanded" : false,
+        "isLocked" : false,
+        "selectedAudioFilePrim" : {
+          "string" : "\/Root\/plash_m4a"
+        }
       },
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Column_UR"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Column_UR",
+        "Column",
         "Group"
       ],
       {
@@ -119,7 +105,7 @@
         "Root",
         "Central_Column",
         "Group",
-        "Sphere_1"
+        "Sphere"
       ],
       {
         "isExpanded" : true,
@@ -157,7 +143,9 @@
     "objectMetadataList" : [
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root"
+        "Root",
+        "GridMaterial",
+        "GridMaterial"
       ],
       {
         "isExpanded" : true,
@@ -165,9 +153,7 @@
       },
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
-        "Root",
-        "GridMaterial",
-        "GridMaterial"
+        "Root"
       ],
       {
         "isExpanded" : true,
