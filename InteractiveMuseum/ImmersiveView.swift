@@ -10,34 +10,35 @@ import RealityKit
 import RealityKitContent
 
 struct ImmersiveView: View {
-    @State var isObjectSelected = false
     @State var currentEntity: Entity?
-    @State var previousPosition: SIMD3<Float> = [0,0,0]
     @State var sliderValue = 1.0
-    @State var previousSize: SIMD3<Float> = [0,0,0]
+    
+    @State var originalPosition: SIMD3<Float> = [0,0,0]
+    @State var originalSize: SIMD3<Float> = [0,0,0]
+    @State var originalOrientation: simd_quatf = .init()
     
     //MARK: - Gestures
     var tapGesture: some Gesture {
         TapGesture()
             .targetedToAnyEntity()
             .onEnded { value in
-                isObjectSelected = true
+                guard currentEntity == nil else { return }
                 currentEntity = value.entity
-                previousPosition = value.entity.position
-                previousSize = value.entity.scale
+                originalPosition = value.entity.position
+                originalSize = value.entity.scale
+                originalOrientation = value.entity.orientation
                 value.entity.setPosition([0, 0.6, -1], relativeTo: nil)
                 value.entity.components[GestureComponent.self]?.canDrag = true
-                // position object 0.5 meters in front of user.
             }
     }
     //MARK: - Functions
     func resetEntityAndEditingTools() {
-        currentEntity?.setPosition(previousPosition, relativeTo: nil)
+        currentEntity?.setPosition(originalPosition, relativeTo: nil)
         currentEntity?.components[GestureComponent.self]?.canDrag = false
-        currentEntity?.setScale(previousSize, relativeTo: nil)
+        currentEntity?.setScale(originalSize, relativeTo: nil)
+        currentEntity?.setOrientation(originalOrientation, relativeTo: nil)
         currentEntity = nil
-        previousPosition = [0,0,0]
-        isObjectSelected = false
+        originalPosition = [0,0,0]
         sliderValue = 1.0
     }
     
@@ -49,6 +50,18 @@ struct ImmersiveView: View {
     func getSizeDifference(oldValue: Double, newValue: Double) -> Float {
         let (min, max) = (min(oldValue, newValue), max(oldValue, newValue))
         return abs(Float(max - min) + (max == oldValue ? -1 : 1))
+    }
+    
+    func tilt(entity: Entity, by degrees: Float, relativeTo relativeToEntity: Entity? = nil) {
+        let rotationAngleDegrees: Float = degrees
+        let rotationAngleRadians = rotationAngleDegrees * .pi / 180
+        let rotationQuaternion = simd_quatf(angle: rotationAngleRadians, axis: SIMD3<Float>(1, 0, 0))
+
+        entity.setOrientation(rotationQuaternion, relativeTo: relativeToEntity)
+    }
+    
+    func setPosition(_ position: SIMD3<Float>, to entity: Entity, relativeTo relativeToEntity: Entity? = nil) {
+        entity.setPosition(position, relativeTo: relativeToEntity)
     }
     
     //MARK: - Body
@@ -70,15 +83,11 @@ struct ImmersiveView: View {
         } update: { content, attachments in
             if let attachmentEntity = attachments.entity(for: "EntityController") {
                 content.add(attachmentEntity)
-                attachmentEntity.setPosition([0,0.5,-0.7], relativeTo: attachmentEntity.parent)
-                let rotationAngleDegrees: Float = -30
-                let rotationAngleRadians = rotationAngleDegrees * .pi / 180
-                let rotationQuaternion = simd_quatf(angle: rotationAngleRadians, axis: SIMD3<Float>(1, 0, 0))
-
-                attachmentEntity.setOrientation(rotationQuaternion, relativeTo: nil)
+                setPosition([0,0.5,-0.7], to: attachmentEntity)
+                tilt(entity: attachmentEntity, by: -30)
             }
         } attachments: {
-            if isObjectSelected {
+            if currentEntity != nil {
                 Attachment(id: "EntityController") {
                     TipContainerView()
                     
