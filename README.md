@@ -5,3 +5,7 @@ By completing this project, you will be able to:
 Develop visionOS applications using SwiftUI.
 Design immersive spatial experiences.
 Integrate Reality Composer Pro and RealityKit to your applications.
+
+Please, take into consideration that loading the immersive space may take a few seconds. This is becuase the 3D objects are big. 
+
+VIDEO: https://youtu.be/glh18VG24jU

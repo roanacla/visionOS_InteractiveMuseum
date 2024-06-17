@@ -463,7 +463,7 @@ def Xform "Root"
         references = @WoodPlank.usdz@
     )
     {
-        color3f inputs:Basecolor_Tint = (0.921431, 0.92145264, 0.921441) (
+        color3f inputs:Basecolor_Tint = (0.6642242, 0.66424006, 0.66423154) (
             colorSpace = "srgb_texture"
             customData = {
                 dictionary realitykit = {
@@ -790,6 +790,13 @@ def Xform "Root"
                 }
             }
         }
+
+        def RealityKitComponent "Accessibility"
+        {
+            uniform token info:id = "RealityKit.Accessibility"
+            bool isEnabled = 1
+            string label = "Mac Studio"
+        }
     }
 
     def "apple_vision_pro_ios16" (
@@ -834,6 +841,13 @@ def Xform "Root"
                 }
             }
         }
+
+        def RealityKitComponent "Accessibility"
+        {
+            uniform token info:id = "RealityKit.Accessibility"
+            bool isEnabled = 1
+            string label = "Apple Vision Pro"
+        }
     }
 
     def "airpods_max_silver_ios14_rev1" (
@@ -875,6 +889,13 @@ def Xform "Root"
                 }
             }
         }
+
+        def RealityKitComponent "Accessibility"
+        {
+            uniform token info:id = "RealityKit.Accessibility"
+            bool isEnabled = 1
+            string label = "AirPods Max"
+        }
     }
 
     def "watch_ultra_trail_loop_orange_beige" (
@@ -915,6 +936,13 @@ def Xform "Root"
                     float3 position = (0.11280894, 0.08724964, 0.34643912)
                 }
             }
+        }
+
+        def RealityKitComponent "Accessibility"
+        {
+            uniform token info:id = "RealityKit.Accessibility"
+            bool isEnabled = 1
+            string label = "Apple Watch Ultra"
         }
     }
 }

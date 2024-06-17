@@ -19,6 +19,22 @@ struct ImmersiveView: View {
     
     @State var mainEntity: Entity?
     
+    //MARK: - Anchor
+    @State private var planeEntity: Entity = {
+        // NOTE: This does not anchor to any desired wall. Instead it anchors to a wall that best matches the desired criteria of what we are looking for.
+        // cms
+        let wallAnchor = AnchorEntity(.plane(.vertical, classification: .wall, minimumBounds: SIMD2<Float>(0.6, 0.6)))
+        
+        // meters
+        let planeMesh = MeshResource.generatePlane(width: 3.75, depth: 2.625, cornerRadius: 0.1)
+        let material = ImmersiveView.loadImageMaterial(imageUrl: "Apple Museum Logo")
+        let planeEntity = ModelEntity(mesh: planeMesh, materials: [material])
+        planeEntity.name = "Canvas"
+        wallAnchor.addChild(planeEntity)
+        
+        return wallAnchor
+    }()
+    
     //MARK: - Gestures
     var tapGesture: some Gesture {
         TapGesture()
@@ -72,6 +88,18 @@ struct ImmersiveView: View {
         await entity.prepareAudio(resource).play()
     }
     
+    static func loadImageMaterial(imageUrl: String) -> SimpleMaterial {
+        do {
+            let texture = try TextureResource.load(named: imageUrl)
+            var material = SimpleMaterial()
+            let color = SimpleMaterial.BaseColor(texture: MaterialParameters.Texture(texture))
+            material.color = color
+            return material
+        } catch {
+            fatalError(String(describing: error))
+        }
+    }
+    
     //MARK: - Body
     var body: some View {
         RealityView { content, attachments in
@@ -94,11 +122,11 @@ struct ImmersiveView: View {
                 setPosition([0,0.5,-0.7], to: attachmentEntity)
                 tilt(entity: attachmentEntity, by: -30)
             }
-            if let fog = content.entities[0].findEntity(named: "ParticleEmitter"), let currentEntity {
+            if let fog = content.entities[0].findEntity(named: "ParticleEmitter"), let _ = currentEntity {
                 fog.components[ParticleEmitterComponent.self]?.isEmitting = true
                 fog.components[ParticleEmitterComponent.self]?.restart()
                 
-                //Accessibility announcement
+                //MARK: - Accessibility announcement
                 AccessibilityNotification.Announcement("An object is been selected").post()
             }
         } attachments: {
