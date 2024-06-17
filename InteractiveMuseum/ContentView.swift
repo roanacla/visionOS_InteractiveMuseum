@@ -19,17 +19,29 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Model3D(named: "Scene", bundle: realityKitContentBundle)
-                .padding(.bottom, 50)
-
-            Text("Welcome to the Interactive Museum!")
-                .font(.largeTitle)
-
-            Toggle("Show ImmersiveSpace", isOn: $showImmersiveSpace)
-                .font(.title)
-                .frame(width: 360)
-                .padding(24)
-                .glassBackgroundEffect()
+            Text("Welcome to the")
+                .font(.extraLargeTitle2)
+                .padding()
+            Image("Apple Museum Logo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 1200, height: 200)
+                .padding([.bottom], 100)
+            
+            Button(action: {
+                showImmersiveSpace.toggle()
+            }, label: {
+                if showImmersiveSpace {
+                    Text("Close")
+                        .font(.extraLargeTitle2)
+                        .padding()
+                } else {
+                    Text("Start")
+                        .font(.extraLargeTitle2)
+                        .padding()
+                }
+            })
+            .padding(40)
         }
         .padding()
         .onChange(of: showImmersiveSpace) { _, newValue in
