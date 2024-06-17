@@ -905,5 +905,10 @@ def Xform "Root"
     {
         uniform asset file = @plash.m4a@
     }
+
+    def RealityKitAudioFile "background_sound_m4a"
+    {
+        uniform asset file = @background_sound.m4a@
+    }
 }
 

@@ -60,12 +60,24 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Transform",
+        "Column",
         "Group"
       ],
       {
         "isExpanded" : true,
         "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "AmbientAudio"
+      ],
+      {
+        "isExpanded" : false,
+        "isLocked" : false,
+        "selectedAudioFilePrim" : {
+          "string" : "\/Root\/background_sound_m4a"
+        }
       },
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
@@ -81,20 +93,9 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "AmbientAudio"
-      ],
-      {
-        "isExpanded" : false,
-        "isLocked" : false,
-        "selectedAudioFilePrim" : {
-          "string" : "\/Root\/plash_m4a"
-        }
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Column",
-        "Group"
+        "Central_Column",
+        "Group",
+        "Sphere"
       ],
       {
         "isExpanded" : true,
@@ -103,9 +104,8 @@
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
-        "Central_Column",
-        "Group",
-        "Sphere"
+        "Transform",
+        "Group"
       ],
       {
         "isExpanded" : true,
