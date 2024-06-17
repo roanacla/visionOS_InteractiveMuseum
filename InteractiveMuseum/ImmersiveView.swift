@@ -29,7 +29,7 @@ struct ImmersiveView: View {
                 originalPosition = value.entity.position
                 originalSize = value.entity.scale
                 originalOrientation = value.entity.orientation
-                value.entity.setPosition([0, 0.6, -1], relativeTo: nil)
+                value.entity.setPosition([0, 0.65, -1], relativeTo: nil)
                 value.entity.components[GestureComponent.self]?.canDrag = true
             }
     }
@@ -85,6 +85,7 @@ struct ImmersiveView: View {
                 let iblComponent = ImageBasedLightComponent(source: .single(resource), intensityExponent: 0.25)
                 immersiveContentEntity.components.set(iblComponent)
                 immersiveContentEntity.components.set(ImageBasedLightReceiverComponent(imageBasedLight: immersiveContentEntity))
+                
                 await playSound()
             }
         } update: { content, attachments in

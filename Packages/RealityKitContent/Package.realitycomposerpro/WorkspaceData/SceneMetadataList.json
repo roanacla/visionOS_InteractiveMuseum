@@ -51,7 +51,20 @@
     "objectMetadataList" : [
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root"
+        "Root",
+        "Central_Column",
+        "Group",
+        "Sphere_1"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root",
+        "Transform",
+        "Group"
       ],
       {
         "isExpanded" : true,
@@ -81,10 +94,7 @@
       },
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Central_Column",
-        "Group",
-        "Sphere_1"
+        "Root"
       ],
       {
         "isExpanded" : true,
@@ -96,16 +106,6 @@
         "Central_Column",
         "Group",
         "Sphere"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root",
-        "Transform",
-        "Group"
       ],
       {
         "isExpanded" : true,

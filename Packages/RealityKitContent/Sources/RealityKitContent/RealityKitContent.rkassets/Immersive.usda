@@ -7,7 +7,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["gramophone", "robot_walk_idle", "toy_car", "wateringcan", "Column_BL", "Column_UL", "Column_UR", "Central_Column", "Wood_Plank", "CorrugatedCardboard", "Fog", "Column_BR", "GridMaterial"]
+    reorder nameChildren = ["Column_BL", "Column_UL", "Column_UR", "Central_Column", "Wood_Plank", "CorrugatedCardboard", "ParticleEmitter", "AmbientAudio", "plash_m4a", "background_sound_m4a", "watch_ultra_trail_loop_orange_beige", "Watch", "mac_studio", "apple_vision_pro_ios16", "airpods_max_silver_ios14_rev1", "Column_BR", "GridMaterial"]
     float3 xformOp:translate = (0, 0, 0)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
@@ -18,166 +18,6 @@ def Xform "Root"
     {
         float3 xformOp:scale = (1, 1, 1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
-
-    def "gramophone" (
-        active = true
-        references = @gramophone.usdz@
-    )
-    {
-        float3 xformOp:scale = (0.002, 0.002, 0.002)
-        float3 xformOp:translate = (-0.5, 0.4, -1)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
-        }
-
-        def RealityKitCustomComponent "RealityKitContent_GestureComponent"
-        {
-            bool canDrag = 0
-            uniform token info:id = "RealityKitContent.GestureComponent"
-        }
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (83.07196, 100.81468, 62.6128)
-                token shapeType = "Box"
-
-                def RealityKitStruct "pose"
-                {
-                    float3 position = (-4.356552, 50.409134, 7.992238)
-                }
-            }
-        }
-    }
-
-    def "robot_walk_idle" (
-        active = true
-        references = @robot_walk_idle.usdz@
-    )
-    {
-        float3 xformOp:scale = (0.01, 0.01, 0.01)
-        float3 xformOp:translate = (-0.5, 0.9, -1.5)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitCustomComponent "RealityKitContent_GestureComponent"
-        {
-            bool canDrag = 0
-            uniform token info:id = "RealityKitContent.GestureComponent"
-        }
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
-        }
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (14.2618, 27.387926, 16.81218)
-                token shapeType = "Box"
-
-                def RealityKitStruct "pose"
-                {
-                    float3 position = (0, 13.698337, -0.98491)
-                }
-            }
-        }
-    }
-
-    def "toy_car" (
-        active = true
-        references = @toy_car.usdz@
-    )
-    {
-        float3 xformOp:scale = (0.01, 0.01, 0.01)
-        float3 xformOp:translate = (0.5, 0.9, -1.5)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
-        }
-
-        def RealityKitCustomComponent "RealityKitContent_GestureComponent"
-        {
-            bool canDrag = 0
-            uniform token info:id = "RealityKitContent.GestureComponent"
-        }
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (12.44035, 11.605675, 31.311699)
-                token shapeType = "Box"
-
-                def RealityKitStruct "pose"
-                {
-                    float3 position = (2.3841858e-7, 5.8028364, 0)
-                }
-            }
-        }
-    }
-
-    def "wateringcan" (
-        active = true
-        references = @wateringcan.usdz@
-    )
-    {
-        float3 xformOp:scale = (0.005, 0.005, 0.005)
-        float3 xformOp:translate = (0.5, 0.4, -1)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def RealityKitCustomComponent "RealityKitContent_GestureComponent"
-        {
-            bool canDrag = 0
-            uniform token info:id = "RealityKitContent.GestureComponent"
-        }
-
-        def RealityKitComponent "InputTarget"
-        {
-            uniform token info:id = "RealityKit.InputTarget"
-        }
-
-        def RealityKitComponent "Collider"
-        {
-            uint group = 1
-            uniform token info:id = "RealityKit.Collider"
-            uint mask = 4294967295
-            token type = "Default"
-
-            def RealityKitStruct "Shape"
-            {
-                float3 extent = (54.914925, 45.506588, 28.350883)
-                token shapeType = "Box"
-
-                def RealityKitStruct "pose"
-                {
-                    float3 position = (3.816636, 22.753294, 0)
-                }
-            }
-        }
     }
 
     def Xform "Column_BR" (
@@ -909,6 +749,173 @@ def Xform "Root"
     def RealityKitAudioFile "background_sound_m4a"
     {
         uniform asset file = @background_sound.m4a@
+    }
+
+    def "mac_studio" (
+        active = true
+        references = @mac_studio.usdz@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.01, 0.01, 0.01)
+        float3 xformOp:translate = (-0.5, 0.9, -1.5)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "InputTarget"
+        {
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def RealityKitCustomComponent "RealityKitContent_GestureComponent"
+        {
+            bool canDrag = 0
+            uniform token info:id = "RealityKitContent.GestureComponent"
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (26.018017, 11.258175, 21.370634)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                    float3 position = (-0.0038237572, 5.6070566, 0.41823483)
+                }
+            }
+        }
+    }
+
+    def "apple_vision_pro_ios16" (
+        active = true
+        customData = {
+            float3 rotationEulerHint = (0, -1.5707963, 0)
+        }
+        references = @apple_vision_pro_ios16.usdz@
+    )
+    {
+        quatf xformOp:orient = (0.70710677, 0, -0.7071067, 0)
+        float3 xformOp:scale = (0.01, 0.01, 0.01)
+        float3 xformOp:translate = (0.5, 0.95, -1.5)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "InputTarget"
+        {
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def RealityKitCustomComponent "RealityKitContent_GestureComponent"
+        {
+            bool canDrag = 0
+            uniform token info:id = "RealityKitContent.GestureComponent"
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (27.25832, 9.864521, 18.286278)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                    float3 position = (-0.938395, 0.5577903, -0.10174179)
+                }
+            }
+        }
+    }
+
+    def "airpods_max_silver_ios14_rev1" (
+        active = true
+        references = @airpods_max_silver_ios14_rev1.usdz@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.01, 0.01, 0.01)
+        float3 xformOp:translate = (-0.5, 0.45, -1)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "InputTarget"
+        {
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def RealityKitCustomComponent "RealityKitContent_GestureComponent"
+        {
+            bool canDrag = 0
+            uniform token info:id = "RealityKitContent.GestureComponent"
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (17.604572, 19.32428, 8.303663)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                    float3 position = (0.010771275, 5.119904, 0)
+                }
+            }
+        }
+    }
+
+    def "watch_ultra_trail_loop_orange_beige" (
+        active = true
+        references = @watch_ultra_trail_loop_orange_beige.usdz@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (0.01, 0.01, 0.01)
+        float3 xformOp:translate = (0.5, 0.45, -1)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "InputTarget"
+        {
+            uniform token info:id = "RealityKit.InputTarget"
+        }
+
+        def RealityKitCustomComponent "RealityKitContent_GestureComponent"
+        {
+            bool canDrag = 0
+            uniform token info:id = "RealityKitContent.GestureComponent"
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (4.440644, 7.5301323, 7.660688)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                    float3 position = (0.11280894, 0.08724964, 0.34643912)
+                }
+            }
+        }
     }
 }
 
