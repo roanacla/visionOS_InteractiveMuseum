@@ -27,6 +27,7 @@ struct ContentView: View {
                 .scaledToFit()
                 .frame(width: 1200, height: 200)
                 .padding([.bottom], 100)
+                .padding([.trailing], 80)
             
             Button(action: {
                 showImmersiveSpace.toggle()
@@ -36,7 +37,7 @@ struct ContentView: View {
                         .font(.extraLargeTitle2)
                         .padding()
                 } else {
-                    Text("Start")
+                    Text("Enter")
                         .font(.extraLargeTitle2)
                         .padding()
                 }
