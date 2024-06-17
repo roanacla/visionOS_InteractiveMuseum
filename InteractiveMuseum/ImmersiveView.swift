@@ -17,6 +17,8 @@ struct ImmersiveView: View {
     @State var originalSize: SIMD3<Float> = [0,0,0]
     @State var originalOrientation: simd_quatf = .init()
     
+    @State var mainEntity: Entity?
+    
     //MARK: - Gestures
     var tapGesture: some Gesture {
         TapGesture()
@@ -64,11 +66,18 @@ struct ImmersiveView: View {
         entity.setPosition(position, relativeTo: relativeToEntity)
     }
     
+    func playSound() async {
+        guard let entity = await mainEntity?.findEntity(named: "AmbientAudio") else { return }
+        guard let resource = try? await AudioFileResource(named: "/Root/background_sound_m4a", from: "Immersive.usda", in: realityKitContentBundle) else { return }
+        await entity.prepareAudio(resource).play()
+    }
+    
     //MARK: - Body
     var body: some View {
         RealityView { content, attachments in
             // Add the initial RealityKit content
             if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
+                self.mainEntity = immersiveContentEntity
                 content.add(immersiveContentEntity)
 
                 // Add an ImageBasedLight for the immersive content
@@ -76,6 +85,7 @@ struct ImmersiveView: View {
                 let iblComponent = ImageBasedLightComponent(source: .single(resource), intensityExponent: 0.25)
                 immersiveContentEntity.components.set(iblComponent)
                 immersiveContentEntity.components.set(ImageBasedLightReceiverComponent(imageBasedLight: immersiveContentEntity))
+                await playSound()
             }
         } update: { content, attachments in
             if let attachmentEntity = attachments.entity(for: "EntityController") {
@@ -86,6 +96,9 @@ struct ImmersiveView: View {
             if let fog = content.entities[0].findEntity(named: "ParticleEmitter"), let currentEntity {
                 fog.components[ParticleEmitterComponent.self]?.isEmitting = true
                 fog.components[ParticleEmitterComponent.self]?.restart()
+                
+                //Accessibility announcement
+                AccessibilityNotification.Announcement("An object is been selected").post()
             }
         } attachments: {
             if currentEntity != nil {
@@ -104,6 +117,7 @@ struct ImmersiveView: View {
         }
         .installGestures()
         .gesture(tapGesture)
+        .animation(.easeIn(duration: 0.5), value: true)
         .onChange(of: sliderValue) { oldValue, newValue in
             scaleEntity(by: getSizeDifference(oldValue: oldValue, newValue: newValue))
         }
