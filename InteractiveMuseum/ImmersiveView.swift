@@ -29,7 +29,7 @@ struct ImmersiveView: View {
                 originalPosition = value.entity.position
                 originalSize = value.entity.scale
                 originalOrientation = value.entity.orientation
-                value.entity.setPosition([0, 0.65, -1], relativeTo: nil)
+                value.entity.setPosition([0, 0.70, -1], relativeTo: nil)
                 value.entity.components[GestureComponent.self]?.canDrag = true
             }
     }
